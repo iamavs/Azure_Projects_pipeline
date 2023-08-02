@@ -46,3 +46,9 @@ variable "nic_name" {
     default = "mynic1"
 }
 
+variable "vm_name" {
+    description = "Virtual Machine Name"
+    type = string
+    default = "myvm1"
+}
+
