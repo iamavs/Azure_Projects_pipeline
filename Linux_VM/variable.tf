@@ -1,7 +1,7 @@
 variable "rg_name" {
     description = "Resource Group Name"
     type = string
-    default = "myrg1"
+    default = "myrg"
 }
 
 variable "rg_location" {
@@ -49,6 +49,6 @@ variable "nic_name" {
 variable "vm_name" {
     description = "Virtual Machine Name"
     type = string
-    default = "myvm1"
+    default = "myvm"
 }
 
