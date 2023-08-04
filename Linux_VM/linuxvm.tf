@@ -1,11 +1,12 @@
-/*
-data "template_file" "cloudinitdata" {
-  template = file("apacheconfig.sh")
-}
-*/
-
+# Used to add shell files
 data "template_file" "linux-vm-cloud-init" {
   template = file("apacheconfig.sh")
+}
+
+# Used to access SSH keys from Keyvault
+data "azurerm_key_vault_secret" "mysecret" {
+    name         = "id-rsa"
+    key_vault_id = "/subscriptions/bf7a6566-c7d3-4936-b331-55a557799448/resourceGroups/rg/providers/Microsoft.KeyVault/vaults/keyvault03082023"
 }
 
 resource "azurerm_linux_virtual_machine" "myvm" {
@@ -20,14 +21,8 @@ resource "azurerm_linux_virtual_machine" "myvm" {
 
   admin_ssh_key {
     username = "azureuser"
-    public_key = file("id_rsa.pub")
+    public_key = data.azurerm_key_vault_secret.mysecret.value
   }
-/*
-  admin_ssh_key {
-    username   = "azureuser"
-    public_key = file("${path.module}/D:/Lakshmikanth/Study/Devops/Azure Devops/SSH Keys/id_rsa.pub")
-  }
-*/
 
   source_image_reference {
     publisher = "canonical"
@@ -40,4 +35,3 @@ resource "azurerm_linux_virtual_machine" "myvm" {
     storage_account_type = "Standard_LRS"
   }
 }
-
