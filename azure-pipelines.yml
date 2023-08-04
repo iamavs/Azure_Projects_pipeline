@@ -49,11 +49,3 @@ steps:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/Linux_VM'
     environmentServiceNameAzureRM: 'AzureDevops'
-
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Destroy'
-  inputs:
-    provider: 'azurerm'
-    command: 'destroy'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Linux_VM'
-    environmentServiceNameAzureRM: 'AzureDevops'
