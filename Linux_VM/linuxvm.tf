@@ -19,9 +19,15 @@ resource "azurerm_linux_virtual_machine" "myvm" {
   custom_data           = base64encode(data.template_file.linux-vm-cloud-init.rendered)
 
   admin_ssh_key {
+    username = "azureuser"
+    public_key = file("id_rsa.pub")
+  }
+/*
+  admin_ssh_key {
     username   = "azureuser"
     public_key = file("${path.module}/D:/Lakshmikanth/Study/Devops/Azure Devops/SSH Keys/id_rsa.pub")
   }
+*/
 
   source_image_reference {
     publisher = "canonical"
