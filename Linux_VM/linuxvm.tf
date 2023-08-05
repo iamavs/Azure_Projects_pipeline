@@ -3,10 +3,18 @@ data "template_file" "linux-vm-cloud-init" {
   template = file("apacheconfig.sh")
 }
 
+/*
 # Used to access SSH keys from Keyvault
 data "azurerm_key_vault_secret" "mysecret" {
     name         = "id-rsa"
     key_vault_id = "/subscriptions/bf7a6566-c7d3-4936-b331-55a557799448/resourceGroups/rg/providers/Microsoft.KeyVault/vaults/keyvault03082023"
+}
+
+*/
+
+data "azurerm_ssh_public_key" "mysshkey"{
+  name = "LinuxKey"
+  resource_group_name = "rg"
 }
 
 resource "azurerm_linux_virtual_machine" "myvm" {
@@ -21,7 +29,7 @@ resource "azurerm_linux_virtual_machine" "myvm" {
 
   admin_ssh_key {
     username = "azureuser"
-    public_key = data.azurerm_key_vault_secret.mysecret.value
+    public_key = data.azurerm_ssh_public_key.mysshkey.id
   }
 
   source_image_reference {
