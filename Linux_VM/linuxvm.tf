@@ -11,7 +11,7 @@ data "azurerm_key_vault_secret" "mysecret" {
 }
 
 */
-
+# Used to access Public SSH keys from Azure SSH Keys 
 data "azurerm_ssh_public_key" "mysshkey"{
   name = "LinuxKey"
   resource_group_name = "rg"
@@ -29,7 +29,10 @@ resource "azurerm_linux_virtual_machine" "myvm" {
 
   admin_ssh_key {
     username = "azureuser"
-    public_key = data.azurerm_ssh_public_key.mysshkey.id
+    #Used for Azure Key Vault
+    #public_key = data.azurerm_key_vault_secret.mysecret.value
+    #Used for Azure SSH Keys
+    public_key = data.azurerm_ssh_public_key.mysshkey.public_key
   }
 
   source_image_reference {
