@@ -18,6 +18,7 @@ data "azurerm_ssh_public_key" "mysshkey"{
 }
 
 resource "azurerm_linux_virtual_machine" "myvm" {
+  count = var.no_instances
   name                  = "{var.vm_name}-${count.index + 1}"
   computer_name         = "{var.vm_name}-${count.index + 1}"
   location              = azurerm_resource_group.myrg.location
