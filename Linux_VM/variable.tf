@@ -43,13 +43,13 @@ variable "subnet_address" {
 variable "pip_name" {
     description = "Public IP Name"
     type = string
-    default = "mypip1"
+    default = "mypip"
 }
 
 variable "nic_name" {
     description = "Network Interface Name"
     type = string
-    default = "mynic1"
+    default = "mynic"
 }
 
 variable "vm_name" {
