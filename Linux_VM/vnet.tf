@@ -24,6 +24,7 @@ resource "azurerm_public_ip" "mypip" {
 }
 
 resource "azurerm_network_interface" "mynic" {
+  count = var.no_instances
   name                = "{var.nic_name}-${count.index +1}"
   location            = azurerm_resource_group.myrg.location
   resource_group_name = azurerm_resource_group.myrg.name
