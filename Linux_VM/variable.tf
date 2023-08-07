@@ -4,6 +4,12 @@ variable "rg_name" {
     default = "myrg"
 }
 
+variable "no_instances" {
+    description = "Number of instances"
+    type = number
+    default = 3
+}
+
 variable "rg_location" {
     description = "Resource Group Location"
     type = string
