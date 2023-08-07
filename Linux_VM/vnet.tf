@@ -15,7 +15,8 @@ resource "azurerm_subnet" "mysubnet" {
 }
 
 resource "azurerm_public_ip" "mypip" {
-  name                = var.pip_name
+  count = var.no_instances
+  name                = "{var.pip_name}-${count.index + 1}"
   resource_group_name = azurerm_resource_group.myrg.name
   location            = azurerm_resource_group.myrg.location
   allocation_method   = "Static"
@@ -23,7 +24,7 @@ resource "azurerm_public_ip" "mypip" {
 }
 
 resource "azurerm_network_interface" "mynic" {
-  name                = var.nic_name
+  name                = "{var.nic_name}-${count.index +1}"
   location            = azurerm_resource_group.myrg.location
   resource_group_name = azurerm_resource_group.myrg.name
 
@@ -31,7 +32,7 @@ resource "azurerm_network_interface" "mynic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.mysubnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.mypip.id
+    public_ip_address_id          = azurerm_public_ip.mypip[count.index].id
   }
   depends_on = [ azurerm_subnet.mysubnet ]
 }
