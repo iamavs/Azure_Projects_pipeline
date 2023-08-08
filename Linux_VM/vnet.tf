@@ -14,6 +14,7 @@ resource "azurerm_subnet" "mysubnet" {
   depends_on = [ azurerm_virtual_network.myvnet ]
 }
 
+/*
 resource "azurerm_public_ip" "mypip1" {
   count = var.no_instances
   name                = "${var.pip_name}${count.index + 1}"
@@ -22,6 +23,7 @@ resource "azurerm_public_ip" "mypip1" {
   allocation_method   = "Static"
   depends_on = [ azurerm_virtual_network.myvnet ]
 }
+*/
 
 resource "azurerm_network_interface" "mynic" {
   count = var.no_instances
@@ -33,7 +35,7 @@ resource "azurerm_network_interface" "mynic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.mysubnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.mypip1[count.index].id
+    #public_ip_address_id          = azurerm_public_ip.mypip1[count.index].id
   }
   depends_on = [ azurerm_subnet.mysubnet ]
 }
