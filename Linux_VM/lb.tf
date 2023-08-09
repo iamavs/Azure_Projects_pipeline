@@ -16,14 +16,14 @@ resource "azurerm_lb" "mylb" {
   }
 }
 
-resource "azurerm_lb_rule" "example" {
+resource "azurerm_lb_rule" "lbrule" {
   loadbalancer_id                = azurerm_lb.mylb.id
   name                           = "LBRule"
   protocol                       = "Tcp"
   frontend_port                  = 80
   backend_port                   = 80
   frontend_ip_configuration_name = azurerm_lb.mylb.frontend_ip_configuration[0].name
-  backend_address_pool_ids   = azurerm_lb_backend_address_pool.mylbbackend.id
+  backend_address_pool_ids   = [azurerm_lb_backend_address_pool.mylbbackend.id]
   probe_id = azurerm_lb_probe.healthprobe.id
 }
 
