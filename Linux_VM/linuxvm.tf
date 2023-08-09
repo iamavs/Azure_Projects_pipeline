@@ -9,20 +9,22 @@ data "azurerm_key_vault_secret" "mysecret" {
     name         = "id-rsa"
     key_vault_id = "/subscriptions/bf7a6566-c7d3-4936-b331-55a557799448/resourceGroups/rg/providers/Microsoft.KeyVault/vaults/keyvault03082023"
 }
-
 */
+
 # Used to access Public SSH keys from Azure SSH Keys 
 data "azurerm_ssh_public_key" "mysshkey"{
   name = "LinuxKey"
   resource_group_name = "rg"
 }
 
+# Deploying VMs in same Availibility set
 resource "azurerm_availability_set" "vmavailabilty" {
   name = "vmavailabiltyset"
   location = azurerm_resource_group.myrg.location
   resource_group_name = azurerm_resource_group.myrg.name
 }
 
+#Azure Linux Virtual Machine
 resource "azurerm_linux_virtual_machine" "myvm" {
   count = var.no_instances
   name                  = "${var.vm_name}${count.index + 1}"
