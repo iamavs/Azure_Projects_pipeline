@@ -17,6 +17,12 @@ data "azurerm_ssh_public_key" "mysshkey"{
   resource_group_name = "rg"
 }
 
+resource "azurerm_availability_set" "vmavailabilty" {
+  name = "vmavailabiltyset"
+  location = azurerm_resource_group.myrg.location
+  resource_group_name = azurerm_resource_group.myrg.name
+}
+
 resource "azurerm_linux_virtual_machine" "myvm" {
   count = var.no_instances
   name                  = "${var.vm_name}${count.index + 1}"
@@ -26,6 +32,7 @@ resource "azurerm_linux_virtual_machine" "myvm" {
   network_interface_ids = [azurerm_network_interface.mynic[count.index].id]
   size                  = "Standard_DS1_v2"
   admin_username        = "azureuser"
+  availability_set_id = azurerm_availability_set.vmavailabilty.id
   custom_data           = base64encode(data.template_file.linux-vm-cloud-init.rendered)
 
   admin_ssh_key {
