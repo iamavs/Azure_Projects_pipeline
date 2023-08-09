@@ -31,13 +31,6 @@ steps:
   displayName: 'Terraform Validate'
   inputs:
     provider: 'azurerm'
-    command: 'fmt'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Linux_VM'
-
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Validate'
-  inputs:
-    provider: 'azurerm'
     command: 'validate'
     workingDirectory: '$(System.DefaultWorkingDirectory)/Linux_VM'
 
