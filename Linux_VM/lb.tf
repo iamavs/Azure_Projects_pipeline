@@ -12,6 +12,7 @@ resource "azurerm_lb" "mylb" {
   name                = "Apachelb"
   location            = azurerm_resource_group.myrg.location
   resource_group_name = azurerm_resource_group.myrg.name
+  sku = "Standard"
 
   frontend_ip_configuration {
     name                 = "PublicIPAddress"
