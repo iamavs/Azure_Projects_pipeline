@@ -23,7 +23,7 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)/Linux_VM'
     backendServiceArm: 'AzureDevops'
     backendAzureRmResourceGroupName: 'rg'
-    backendAzureRmStorageAccountName: 'storage290720231805'
+    backendAzureRmStorageAccountName: 'rglogicapps8cb1'
     backendAzureRmContainerName: 'statefile'
     backendAzureRmKey: 'vmstatefile.tfstate'
 
